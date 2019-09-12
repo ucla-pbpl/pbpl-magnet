@@ -1,0 +1,1007 @@
+' sextup
+
+'25mmBore250mmLengthQuad
+
+'#Language "WWB-COM"
+
+Option Explicit
+
+Sub Main
+
+'All Dimensions
+
+Dim outterLength As Double
+Dim innerLength As Double
+Dim thickness As Double
+Dim offSet As Double
+Dim magnetLength As Double
+Dim boreDiameter As Double
+Dim currentDensity As Double
+Dim coilTurns As Double
+Dim stemWidth As Double
+Dim stemLength As Double
+Dim stemRoundingRadius As Double
+Dim stemThickness As Double
+Dim topWidth As Double
+Dim topLength As Double
+Dim coilDimension_L As Double
+
+	outterLength = 225.0
+    innerLength = 180.0
+
+    offSet = (outterLength - innerLength)/2
+
+    thickness = offSet * (3^(1/2))
+
+    magnetLength = 250.0
+    boreDiameter = 25.0
+
+    currentDensity = 5.0
+    coilTurns = 1000.0
+
+    stemWidth = 30.0
+	stemLength = 190.0
+    stemRoundingRadius = 6
+    stemThickness = 90.0
+
+    topWidth = 70.0
+    topLength = 220.0
+
+    coilDimension_L = 20.0
+
+With Polygon
+
+     .Reset
+
+     .Name "Outter Curve"
+
+     .Curve "outter"
+
+     .Point "0", "0"
+
+     .LineTo outterLength, "0"
+
+     .RLine outterLength*(1/2), -1*outterLength*(3^(1/2))/2
+
+     .RLine -1*outterLength*(1/2), -1*outterLength*(3^(1/2))/2
+
+     .RLine -1*outterLength, "0"
+
+     .RLine -1*outterLength*(1/2), outterLength*(3^(1/2))/2
+
+     .LineTo "0", "0"
+
+     .Create
+
+End With
+
+With Polygon
+
+     .Reset
+
+     .Name "Inner Curve"
+
+     .Curve "inner"
+
+     .Point offSet, -1*thickness
+
+     .RLine innerLength, "0"
+
+     .RLine innerLength*(1/2), -1*innerLength*(3^(1/2))/2
+
+     .RLine -1*innerLength*(1/2), -1*innerLength*(3^(1/2))/2
+
+     .RLine -1*innerLength, "0"
+
+     .RLine -1*innerLength*(1/2), innerLength*(3^(1/2))/2
+
+     .LineTo offSet, -1*thickness
+
+     .Create
+
+End With
+
+With Material
+     .Reset
+     .Name "Steel-1008"
+     .Folder ""
+.FrqType "static"
+.Type "Normal"
+.MaterialUnit "Frequency", "Hz"
+.MaterialUnit "Geometry", "mm"
+.MaterialUnit "Time", "s"
+.Epsilon "1"
+.Mu "1000"
+.Sigma "7.69e006"
+.TanD "0.0"
+.TanDFreq "0.0"
+.TanDGiven "False"
+.TanDModel "ConstSigma"
+.EnableUserConstTanDModelOrderEps "False"
+.ConstTanDModelOrderEps "1"
+.SetElParametricConductivity "False"
+.ReferenceCoordSystem "Global"
+.CoordSystemType "Cartesian"
+.SigmaM "0"
+.TanDM "0.0"
+.TanDMFreq "0.0"
+.TanDMGiven "False"
+.TanDMModel "ConstSigma"
+.EnableUserConstTanDModelOrderMu "False"
+.ConstTanDModelOrderMu "1"
+.SetMagParametricConductivity "False"
+.DispModelEps  "None"
+.DispModelMu "None"
+.DispersiveFittingSchemeEps "Nth Order"
+.MaximalOrderNthModelFitEps "10"
+.ErrorLimitNthModelFitEps "0.1"
+.DispersiveFittingSchemeMu "Nth Order"
+.MaximalOrderNthModelFitMu "10"
+.ErrorLimitNthModelFitMu "0.1"
+.UseGeneralDispersionEps "False"
+.UseGeneralDispersionMu "False"
+.NonlinearMeasurementError "1e-3"
+.ResetHBList
+.SetNonlinearCurveType "Soft-Magnetic-BH"
+.AddNonlinearCurveValue " 0", " 0"
+.AddNonlinearCurveValue " 109.8", " 1"
+.AddNonlinearCurveValue " 123.4", " 1.1"
+.AddNonlinearCurveValue " 143.2", " 1.2"
+.AddNonlinearCurveValue " 174.8", " 1.3"
+.AddNonlinearCurveValue " 246.2", " 1.4"
+.AddNonlinearCurveValue " 493", " 1.5"
+.AddNonlinearCurveValue " 954.2", " 1.549"
+.AddNonlinearCurveValue " 1751", " 1.6"
+.AddNonlinearCurveValue " 2942", " 1.649"
+.AddNonlinearCurveValue " 4376", " 1.7"
+.AddNonlinearCurveValue " 6204", " 1.749"
+.AddNonlinearCurveValue " 8355", " 1.8"
+.AddNonlinearCurveValue " 10500", " 1.849"
+.AddNonlinearCurveValue " 12890", " 1.9"
+.AddNonlinearCurveValue " 15270", " 1.949"
+.AddNonlinearCurveValue " 17830", " 2"
+.AddNonlinearCurveValue " 20450", " 2.049"
+.AddNonlinearCurveValue " 23240", " 2.1"
+.AddNonlinearCurveValue " 28640", " 2.149"
+.AddNonlinearCurveValue " 45760", " 2.2"
+.AddNonlinearCurveValue " 79560", " 2.249"
+.AddNonlinearCurveValue " 117000", " 2.3"
+.AddNonlinearCurveValue " 195800", " 2.4"
+.AddNonlinearCurveValue " 270600", " 2.495"
+.AddNonlinearCurveValue " 668500", " 3"
+.AddNonlinearCurveValue " 1.536e+006", " 4.1"
+.AddNonlinearCurveValue " 7.815e+006", " 12"
+.GenerateNonlinearCurve
+.NLAnisotropy "False"
+.NLAStackingFactor "1"
+.NLADirectionX "1"
+.NLADirectionY "0"
+.NLADirectionZ "0"
+.FrqType "all"
+.Type "Lossy metal"
+.MaterialUnit "Frequency", "GHz"
+.MaterialUnit "Geometry", "mm"
+.MaterialUnit "Time", "s"
+.MaterialUnit "Temperature", "Kelvin"
+.Mu "1.0"
+.Sigma "7.69e006"
+.LossyMetalSIRoughness "0.0"
+.ReferenceCoordSystem "Global"
+.CoordSystemType "Cartesian"
+.NonlinearMeasurementError "1e-1"
+.NLAnisotropy "False"
+.NLAStackingFactor "1"
+.NLADirectionX "1"
+.NLADirectionY "0"
+.NLADirectionZ "0"
+.Rho "7870.0"
+.ThermalType "Normal"
+.ThermalConductivity "59.5"
+.HeatCapacity "0.48"
+.DynamicViscosity "0"
+.Emissivity "0"
+.MetabolicRate "0"
+.BloodFlow "0"
+.VoxelConvection "0"
+.MechanicsType "Isotropic"
+.YoungsModulus "200"
+.PoissonsRatio "0.29"
+.ThermalExpansionRate "13.5"
+.Colour "0.615686", "0.615686", "0.615686"
+.Wireframe "False"
+.Reflection "False"
+.Allowoutline "True"
+.Transparentoutline "False"
+.Transparency "0"
+.Create
+End With
+
+With ExtrudeCurve
+
+     .Reset
+
+     .Name "Outter Shell"
+
+     .Component "Shell"
+
+     .Material "Steel-1008"
+
+     .Thickness magnetLength
+
+     .Twistangle "0.0"
+
+     .Taperangle "0.0"
+
+     .Curve "outter:Outter Curve"
+
+     .Create
+
+End With
+
+With ExtrudeCurve
+
+     .Reset
+
+     .Name "Inner Shell"
+
+     .Component "Shell"
+
+     .Material "Vacuum"
+
+     .Thickness magnetLength
+
+     .Twistangle "0.0"
+
+     .Taperangle "0.0"
+
+     .Curve "inner:Inner Curve"
+
+     .Create
+
+End With
+
+Solid.Subtract "Shell:Outter Shell", "Shell:Inner Shell"
+
+With Polygon3D
+
+	Dim a As Double
+	Dim b As Double
+	Dim z As Double
+
+	a = ((outterLength - stemWidth)/2 + stemRoundingRadius)
+	b = (outterLength - (outterLength - stemWidth)/2 - stemRoundingRadius)
+	z = -1*((magnetLength - stemLength)/2)
+
+     .Reset
+
+     .Name "line1"
+
+     .Curve "Stem Bottom"
+
+     .Point a, -1*thickness, z
+
+     .Point b, -1*thickness, z
+
+     .Create
+
+End With
+
+With Polygon3D
+
+	Dim z_1 As Double
+
+	z_1 = (-1*((magnetLength - (magnetLength - stemLength)/2)))
+
+     .Reset
+
+     .Name "line2"
+
+     .Curve "Stem Bottom"
+
+     .Point a, -1*thickness, z_1
+
+     .Point b, -1*thickness, z_1
+
+     .Create
+
+End With
+
+With Polygon3D
+
+	Dim a_1 As Double
+	Dim h_1 As Double
+	Dim h_2 As Double
+
+	a_1 = (outterLength - stemWidth)/2
+	h_1 = -1*((magnetLength - stemLength)/2 + stemRoundingRadius)
+	h_2 = -1*(magnetLength - (magnetLength - stemLength)/2 - stemRoundingRadius)
+
+     .Reset
+
+     .Name "line3"
+
+     .Curve "Stem Bottom"
+
+     .Point a_1, -1*thickness, h_1
+
+     .Point a_1, -1*thickness, h_2
+
+     .Create
+
+End With
+
+With Polygon3D
+
+	Dim a_2 As Double
+
+	a_2 = (outterLength - (outterLength - stemWidth)/2)
+
+     .Reset
+
+     .Name "line4"
+
+     .Curve "Stem Bottom"
+
+     .Point a_2, -1*thickness, h_1
+     .Point a_2, -1*thickness, h_2
+
+
+     .Create
+
+End With
+
+WCS.RotateWCS("u",90)
+
+WCS.MoveWCS ("local", 0.0, 0.0, thickness)
+
+WCS.ActivateWCS("local")
+
+With Arc
+
+     .Reset
+
+     .Name "arc1"
+
+     .Curve "Stem Bottom"
+
+     .Orientation "Clockwise"
+
+     .XCenter a
+
+     .YCenter h_1
+
+     .X1 a_1
+
+     .Y1 h_1
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+With Arc
+
+     .Reset
+
+     .Name "arc2"
+
+     .Curve "Stem Bottom"
+
+     .Orientation "Clockwise"
+
+     .XCenter b
+
+     .YCenter h_1
+
+     .X1 b
+
+     .Y1 z
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+With Arc
+
+     .Reset
+
+     .Name "arc3"
+
+     .Curve "Stem Bottom"
+
+     .Orientation "Clockwise"
+
+     .XCenter b
+
+     .YCenter h_2
+
+     .X1 a_2
+
+     .Y1 h_2
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+With Arc
+
+     .Reset
+
+     .Name "arc4"
+
+     .Curve "Stem Bottom"
+
+     .Orientation "Clockwise"
+
+     .XCenter a
+
+     .YCenter h_2
+
+     .X1 a
+
+     .Y1 z_1
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+With ExtrudeCurve
+
+     .Reset
+
+     .Name "Stem Bottom"
+
+     .Component "Stem"
+
+     .Material "Steel-1008"
+
+     .Thickness -1*stemThickness
+
+     .Twistangle "0.0"
+
+     .Taperangle "0.0"
+
+     .Curve "Stem Bottom"
+
+     .Create
+
+End With
+
+Dim stemBottom_to_Center_dH As Double
+stemBottom_to_Center_dH = ((outterLength * (3^(1/2)))- 2*thickness)/2
+
+
+WCS.MoveWCS ("local", (outterLength/2), 0.0, stemBottom_to_Center_dH)
+
+With Transform
+
+     .Reset
+
+     .Name "Stem"
+
+     .Origin "Free"
+
+     .Center "0", "0", "0"
+
+     .Angle "0", "60", "0"
+
+     .MultipleObjects "True"
+
+     .GroupObjects "False"
+
+     .Repetitions "5"
+
+     .MultipleSelection "False"
+
+     .Destination ""
+
+     .Material ""
+
+     .Transform "Shape", "Rotate"
+
+End With
+
+Dim center_to_TopCoord_dW As Double
+Dim center_to_TopCoord_dH As Double
+center_to_TopCoord_dW = -1*(magnetLength - topLength)/2
+center_to_TopCoord_dH = -1*(stemBottom_to_Center_dH - stemThickness)
+
+WCS.MoveWCS ("local", 0.0, center_to_TopCoord_dW, center_to_TopCoord_dH)
+WCS.RotateWCS("u",-90)
+
+With Line
+
+Dim x_1 As Double
+Dim x_2 As Double
+x_1 = -1*(topWidth/2)
+x_2 = topWidth/2
+
+    .Reset
+
+    .Name ("line1")
+
+    .Curve ("Hyperbolic Top")
+
+    .X1 (x_1)
+
+    .Y1 ("0")
+
+    .X2 (x_2)
+
+    .Y2 ("0")
+
+    .Create
+
+End With
+
+With Spline
+
+Dim midPoint_x_1 As Double
+Dim midPoint_x_2 As Double
+Dim midPoint_y As Double
+Dim topHeight As Double
+midPoint_x_1 = x_1 + stemWidth*(1/3)/2
+midPoint_x_2 = x_2 - stemWidth*(1/3)/2
+midPoint_y = -1*stemWidth*(1/3)*(3^(1/2))/2
+topHeight = -1*(center_to_TopCoord_dH + boreDiameter/2)
+
+     .Reset
+
+     .Name "spline1"
+
+     .Curve "Hyperbolic Top"
+
+     .Point x_1, "0"
+
+     .LineTo midPoint_x_1, midPoint_y
+
+     .LineTo "0", -1.125*topHeight
+
+     .LineTo midPoint_x_2, midPoint_y
+
+     .LineTo x_2, "0"
+
+     .Create
+
+End With
+
+With ExtrudeCurve
+
+     .Reset
+
+     .Name "Hyperbolic Top"
+
+     .Component "Hyperbolic Top"
+
+     .Material "Steel-1008"
+
+     .Thickness topLength
+
+     .Twistangle "0.0"
+
+     .Taperangle "0.0"
+
+     .Curve "Hyperbolic Top"
+
+     .Create
+
+End With
+
+WCS.MoveWCS ("local", 0.0, center_to_TopCoord_dH, 0.0)
+
+With Transform
+
+     .Reset
+
+     .Name "Hyperbolic Top"
+
+     .Origin "Free"
+
+     .Center "0", "0", "0"
+
+     .Angle "0", "0", "60"
+
+     .MultipleObjects "True"
+
+     .GroupObjects "False"
+
+     .Repetitions "5"
+
+     .MultipleSelection "False"
+
+     .Destination ""
+
+     .Material ""
+
+     .Transform "Shape", "Rotate"
+
+End With
+
+WCS.AlignWCSWithGlobalCoordinates
+
+With Polygon3D
+
+     .Reset
+
+     .Name "line1"
+
+     .Curve "Coil Path"
+
+     .Point a, -1*thickness, z
+
+     .Point b, -1*thickness, z
+
+     .Create
+
+End With
+
+With Polygon3D
+
+	 .Reset
+
+     .Name "line2"
+
+     .Curve "Coil Path"
+
+     .Point a, -1*thickness, z_1
+
+     .Point b, -1*thickness, z_1
+
+     .Create
+
+End With
+
+With Polygon3D
+
+     .Reset
+
+     .Name "line3"
+
+     .Curve "Coil Path"
+
+     .Point a_1, -1*thickness, h_1
+
+     .Point a_1, -1*thickness, h_2
+
+     .Create
+
+End With
+
+With Polygon3D
+
+     .Reset
+
+     .Name "line4"
+
+     .Curve "Coil Path"
+
+     .Point a_2, -1*thickness, h_1
+     .Point a_2, -1*thickness, h_2
+
+
+     .Create
+
+End With
+
+WCS.RotateWCS("u",90)
+
+WCS.MoveWCS ("local", 0.0, 0.0, thickness)
+
+WCS.ActivateWCS("local")
+
+With Arc
+
+     .Reset
+
+     .Name "arc1"
+
+     .Curve "Coil Path"
+
+     .Orientation "Clockwise"
+
+     .XCenter a
+
+     .YCenter h_1
+
+     .X1 a_1
+
+     .Y1 h_1
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+With Arc
+
+     .Reset
+
+     .Name "arc2"
+
+     .Curve "Coil Path"
+
+     .Orientation "Clockwise"
+
+     .XCenter b
+
+     .YCenter h_1
+
+     .X1 b
+
+     .Y1 z
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+With Arc
+
+     .Reset
+
+     .Name "arc3"
+
+     .Curve "Coil Path"
+
+     .Orientation "Clockwise"
+
+     .XCenter b
+
+     .YCenter h_2
+
+     .X1 a_2
+
+     .Y1 h_2
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+With Arc
+
+     .Reset
+
+     .Name "arc4"
+
+     .Curve "Coil Path"
+
+     .Orientation "Clockwise"
+
+     .XCenter a
+
+     .YCenter h_2
+
+     .X1 a
+
+     .Y1 z_1
+
+     .UseAngle "True"
+
+     .Angle "90"
+
+     .Segments "0"
+
+     .Create
+
+End With
+
+WCS.MoveWCS ("local", a_2, h_1, 0.0)
+
+WCS.RotateWCS("u",90)
+
+With Rectangle
+
+     .Reset
+
+     .Name "rectangle1"
+
+     .Curve "Coil Profile"
+
+     .Xrange "0", coilDimension_L
+
+     .Yrange "0", stemThickness
+
+     .Create
+
+End With
+
+With Coil
+
+	Dim currentIntensity As Double
+	currentIntensity = currentDensity * stemThickness * coilDimension_L / coilTurns
+
+     .Reset
+
+     .Name ("coil1")
+
+     .Type ("ProfilePath")
+
+     .ProfileName ("Coil Profile")
+
+     .PathName ("Coil Path")
+
+     .Current currentIntensity
+
+     .Phase ("0")
+
+     .NTurns coilTurns
+
+     .Create
+
+End With
+
+WCS.AlignWCSWithGlobalCoordinates
+WCS.RotateWCS("u",90)
+WCS.MoveWCS ("local", 0.0, 0.0, thickness)
+WCS.ActivateWCS("local")
+WCS.MoveWCS ("local", (outterLength/2), 0.0, stemBottom_to_Center_dH)
+
+With Transform
+     .Reset
+     .Name "coil1"
+     .Origin "Free"
+     .Center "0", "0", "0"
+     .Angle "0", "60", "0"
+     .MultipleObjects "True"
+     .GroupObjects "False"
+     .Repetitions "5"
+     .MultipleSelection "False"
+     .Destination ""
+     .Material ""
+     .Transform "Coil", "Rotate"
+End With
+
+With Coil
+     .Reset
+     .Name "coil1_1"
+     .CoilType "Stranded Current"
+     .ToolType "CurveCurve"
+     .Value currentIntensity
+     .Phase "0"
+     .NTurns coilTurns
+     .Resistance "0"
+     .CurrentDirection "Inverted"
+     .Change
+End With
+
+With Coil
+     .Reset
+     .Name "coil1_3"
+     .CoilType "Stranded Current"
+     .ToolType "CurveCurve"
+     .Value currentIntensity
+     .Phase "0"
+     .NTurns coilTurns
+     .Resistance "0"
+     .CurrentDirection "Inverted"
+     .Change
+End With
+
+With Coil
+     .Reset
+     .Name "coil1_5"
+     .CoilType "Stranded Current"
+     .ToolType "CurveCurve"
+     .Value currentIntensity
+     .Phase "0"
+     .NTurns coilTurns
+     .Resistance "0"
+     .CurrentDirection "Inverted"
+     .Change
+End With
+
+With Background
+     .ResetBackground
+     .XminSpace "500"
+     .XmaxSpace "500"
+     .YminSpace "500"
+     .YmaxSpace "500"
+     .ZminSpace "500"
+     .ZmaxSpace "500"
+     .ApplyInAllDirections "True"
+End With
+
+With Material
+     .Reset
+     .Rho "0.0"
+     .ThermalType "Normal"
+     .ThermalConductivity "0"
+     .HeatCapacity "0"
+     .DynamicViscosity "0"
+     .Emissivity "0"
+     .MetabolicRate "0.0"
+     .VoxelConvection "0.0"
+     .BloodFlow "0"
+     .MechanicsType "Unused"
+     .FrqType "all"
+     .Type "Normal"
+     .MaterialUnit "Frequency", "Hz"
+     .MaterialUnit "Geometry", "m"
+     .MaterialUnit "Time", "s"
+     .MaterialUnit "Temperature", "Kelvin"
+     .Epsilon "1"
+     .Mu "1"
+     .Sigma "0.0"
+     .TanD "0.0"
+     .TanDFreq "0.0"
+     .TanDGiven "False"
+     .TanDModel "ConstSigma"
+     .EnableUserConstTanDModelOrderEps "False"
+     .ConstTanDModelOrderEps "1"
+     .SetElParametricConductivity "False"
+     .ReferenceCoordSystem "Global"
+     .CoordSystemType "Cartesian"
+     .SigmaM "0"
+     .TanDM "0.0"
+     .TanDMFreq "0.0"
+     .TanDMGiven "False"
+     .TanDMModel "ConstSigma"
+     .EnableUserConstTanDModelOrderMu "False"
+     .ConstTanDModelOrderMu "1"
+     .SetMagParametricConductivity "False"
+     .DispModelEps  "None"
+     .DispModelMu "None"
+     .DispersiveFittingSchemeEps "Nth Order"
+     .MaximalOrderNthModelFitEps "10"
+     .ErrorLimitNthModelFitEps "0.1"
+     .UseOnlyDataInSimFreqRangeNthModelEps "False"
+     .DispersiveFittingSchemeMu "Nth Order"
+     .MaximalOrderNthModelFitMu "10"
+     .ErrorLimitNthModelFitMu "0.1"
+     .UseOnlyDataInSimFreqRangeNthModelMu "False"
+     .UseGeneralDispersionEps "False"
+     .UseGeneralDispersionMu "False"
+     .NLAnisotropy "False"
+     .NLAStackingFactor "1"
+     .NLADirectionX "1"
+     .NLADirectionY "0"
+     .NLADirectionZ "0"
+     .Colour "0.6", "0.6", "0.6"
+     .Wireframe "False"
+     .Reflection "False"
+     .Allowoutline "True"
+     .Transparentoutline "False"
+     .Transparency "0"
+     .ChangeBackgroundMaterial
+End With
+
+End Sub
